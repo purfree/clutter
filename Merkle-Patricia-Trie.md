@@ -41,34 +41,34 @@ leaf和extension的结构一样，通过前缀标记位来区分，最低位0=�
 
 树结构如下
 
-						rootHash（extension，key=6长度1，奇数，因此标记位=1，6填充到低四位）
+						                rootHash（extension，key=6长度1，奇数，因此标记位=1，6填充到低四位）
 												  <16>
 												    |
 												    |
 												  hashA（branch）
-						0    	1	2	3	4	5	6	7	8	9	a 	b 	c 	d 	e 	f 	'' （最后位值为空）
-									  /					\
-									/					  \
-								  /						    \
-							    /						      \
-							  /								    \
-							hashB								hashC
-				（extension，key=6f长度2，偶数				（leaf，key长度8，偶数
-				 因此标记位=0，0填充到低四位）				因此标记位=2,0填充到低四位）
-							<00 6f>							<20 6f 72 73 65> 'stallion'
-								|
-								|
-							  hashD（branch）
-		0	1	2	3	4	5	6	7	8	9	a 	b 	c 	d 	e 	f 	'verb'
-								|
-								|
-							hashE（extension）
-							  <17>
-								|
-								|
-							  hashF
-		0	1	2	3	4	5	6	7	8	9	a 	b 	c 	d 	e 	f 	'puppy'
-							|
-							|
-						  hashG
-						<35> 'coin'
+						0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f    '' （最后位值为空）
+								   /			 \
+								 /			   \
+							       /			     \
+							     /				       \
+							   /					 \
+							hashB					hashC
+				         （extension，key=6f长度2，偶数		（leaf，key长度8，偶数
+				           因此标记位=0，0填充到低四位）		    因此标记位=2,0填充到低四位）
+							<00 6f>				<20 6f 72 73 65> 'stallion'
+							   |
+							   |
+						   hashD（branch）
+		0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f    'verb'
+					      |
+					      |
+					hashE（extension）
+					     <17>
+					      |
+			                      |
+				            hashF（branch）
+		0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f    'puppy'
+					      |
+					      |
+					    hashG（leaf）
+					  <35> 'coin'

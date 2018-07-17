@@ -1,21 +1,24 @@
 # 梅克尔帕特里夏树（Merkle Patricia Trie）
+
 节点类型如下
-1.NULL (represented as the empty string)
-2.branch A 17-item node [ v0 ... v15, vt ] 
-3.leaf A 2-item node [ encodedPath, value ]
-4.extension A 2-item node [ encodedPath, key ]
+1. NULL (represented as the empty string)
+2. branch A 17-item node [ v0 ... v15, vt ] 
+3. leaf A 2-item node [ encodedPath, value ]
+4. extension A 2-item node [ encodedPath, key ]
 
 v0-v15对应0-15（16进制0-f），vt为存储的value
 
+# 标记位
 leaf和extension的结构一样，通过前缀标记位来区分，最低位0=偶数，1-奇数，低二位0=extension,1=leaf,占半个字节，所以如果是偶数，低四位填充0，如果是奇数，低四位填充key的第一个值。
-hex char    bits    |    node type partial     path length
-----------------------------------------------------------
-   0        0000    |       extension              even        
-   1        0001    |       extension              odd         
-   2        0010    |   terminating (leaf)         even        
-   3        0011    |   terminating (leaf)         odd
 
-示例
+    hex char    bits    |    node type partial     path length
+    ----------------------------------------------------------
+       0        0000    |       extension              even        
+       1        0001    |       extension              odd         
+       2        0010    |   terminating (leaf)         even        
+       3        0011    |   terminating (leaf)         odd
+
+# 示例
 假设有4个key/value对，('do', 'verb'), ('dog', 'puppy'), ('doge', 'coin'), ('horse', 'stallion').
 首先将key转换为字节
 <64 6f> : 'verb'

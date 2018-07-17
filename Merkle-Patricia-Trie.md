@@ -19,32 +19,34 @@ leaf和extension的结构一样，通过前缀标记位来区分，最低位0=�
        3        0011    |   terminating (leaf)         odd
 
 # 示例
-假设有4个key/value对：
-('do', 'verb'), ('dog', 'puppy'), ('doge', 'coin'), ('horse', 'stallion')
+假设有4个key/value对，('do', 'verb'), ('dog', 'puppy'), ('doge', 'coin'), ('horse', 'stallion')。
 
 首先将key转换为字节
-<64 6f> : 'verb'
-<64 6f 67> : 'puppy'
-<64 6f 67 65> : 'coin'
-<68 6f 72 73 65> : 'stallion'
+
+    <64 6f> : 'verb'
+    <64 6f 67> : 'puppy'
+    <64 6f 67 65> : 'coin'
+    <68 6f 72 73 65> : 'stallion'
 
 数据库中的存储格式
-rootHash: [ <16>, hashA ]
-hashA:    [ <>, <>, <>, <>, hashB, <>, <>, <>, hashC, <>, <>, <>, <>, <>, <>, <>, <> ]
-hashC:    [ <20 6f 72 73 65>, 'stallion' ]
-hashB:    [ <00 6f>, hashD ]
-hashD:    [ <>, <>, <>, <>, <>, <>, hashE, <>, <>, <>, <>, <>, <>, <>, <>, <>, 'verb' ]
-hashE:    [ <17>, hashF ]
-hashF:    [ <>, <>, <>, <>, <>, <>, hashG, <>, <>, <>, <>, <>, <>, <>, <>, <>, 'puppy' ]
-hashG:    [ <35>, 'coin' ]
+
+    rootHash: [ <16>, hashA ]
+    hashA:    [ <>, <>, <>, <>, hashB, <>, <>, <>, hashC, <>, <>, <>, <>, <>, <>, <>, <> ]
+    hashC:    [ <20 6f 72 73 65>, 'stallion' ]
+    hashB:    [ <00 6f>, hashD ]
+    hashD:    [ <>, <>, <>, <>, <>, <>, hashE, <>, <>, <>, <>, <>, <>, <>, <>, <>, 'verb' ]
+    hashE:    [ <17>, hashF ]
+    hashF:    [ <>, <>, <>, <>, <>, <>, hashG, <>, <>, <>, <>, <>, <>, <>, <>, <>, 'puppy' ]
+    hashG:    [ <35>, 'coin' ]
 
 树结构如下
+
 						rootHash（extension，key=6长度1，奇数，因此标记位=1，6填充到低四位）
 												  <16>
 												    |
 												    |
 												  hashA（branch）
-						0	1	2	3	4	5	6	7	8	9	a 	b 	c 	d 	e 	f 	'' （最后位值为空）
+						0    	1	2	3	4	5	6	7	8	9	a 	b 	c 	d 	e 	f 	'' （最后位值为空）
 									  /					\
 									/					  \
 								  /						    \

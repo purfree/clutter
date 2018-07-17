@@ -19,7 +19,9 @@ leaf和extension的结构一样，通过前缀标记位来区分，最低位0=�
        3        0011    |   terminating (leaf)         odd
 
 # 示例
-假设有4个key/value对，('do', 'verb'), ('dog', 'puppy'), ('doge', 'coin'), ('horse', 'stallion').
+假设有4个key/value对：
+('do', 'verb'), ('dog', 'puppy'), ('doge', 'coin'), ('horse', 'stallion')
+
 首先将key转换为字节
 <64 6f> : 'verb'
 <64 6f 67> : 'puppy'
@@ -35,6 +37,7 @@ hashD:    [ <>, <>, <>, <>, <>, <>, hashE, <>, <>, <>, <>, <>, <>, <>, <>, <>, '
 hashE:    [ <17>, hashF ]
 hashF:    [ <>, <>, <>, <>, <>, <>, hashG, <>, <>, <>, <>, <>, <>, <>, <>, <>, 'puppy' ]
 hashG:    [ <35>, 'coin' ]
+
 树结构如下
 						rootHash（extension，key=6长度1，奇数，因此标记位=1，6填充到低四位）
 												  <16>

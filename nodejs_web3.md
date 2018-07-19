@@ -6,6 +6,5 @@
 
 npm install -y web3
 
-扩展web3js未提供的以太坊接口函数，参考下面的地址
-
+扩展web3js未提供的以太坊接口函数，参考下面的地址  
 go-ethereum/internal/web3ext/web3ext.go

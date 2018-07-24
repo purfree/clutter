@@ -4,7 +4,9 @@
 2. 安装make yum -y install gcc automake autoconf libtool make
 3. 安装g++ yum install -y gcc gcc-c++
 
-npm install -y web3
+
+nodejs下载  
+https://nodejs.org/en/download/
 
 配置NODE_HOME，进入profile编辑环境变量  
 vim /etc/profile  
@@ -16,6 +18,9 @@ source /etc/profile
 验证是否安装配置成功  
 
 node -v
+
+we3js安装  
+npm install -y web3  
 
 扩展web3js未提供的以太坊接口函数，参考下面的地址  
 go-ethereum/internal/web3ext/web3ext.go

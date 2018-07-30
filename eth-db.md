@@ -1,4 +1,4 @@
-    key														                    value
+    key                                               value
     LastBlock                                         最近的块hash，全节点的最近块hash。
                                                       官方解释 headBlockKey tracks the latest know full block's hash.
     LastHeader                                        最近的块hash，当前块hash，可能当前块还为加入区块链。

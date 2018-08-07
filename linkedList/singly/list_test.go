@@ -103,3 +103,18 @@ func TestList_Get(t *testing.T) {
 	n = l.Get(9)
 	fmt.Println(n.Data())
 }
+
+func TestList_Front(t *testing.T) {
+	l := append()
+	print(l)
+	fmt.Println(l.Front().Data())
+}
+
+func TestList_InsertFront(t *testing.T) {
+	l := append()
+	print(l)
+	l.InsertFront(10)
+	l.InsertFront(11)
+	l.InsertFront(12)
+	print(l)
+}

@@ -28,22 +28,11 @@ func (p *List) Append(data interface{}) *Node {
 	return n
 }
 
-// 添加数据到指定位置
-func (p *List) Insert(data interface{}, index int) *Node {
-	if index < 0 || index > p.size-1 {
-		return nil
-	}
+// 添加数据到链头
+func (p *List) InsertFront(data interface{}) *Node {
 	n := newNode(data)
-	c := p.head
-	for c.next != nil {
-		if index == 0 {
-			break
-		}
-		index--
-		c = c.next
-	}
-	n.next = c.next
-	c.next = n
+	n.next = p.head.next
+	p.head.next = n
 	p.size++
 	return n
 }
@@ -68,6 +57,11 @@ func (p *List) Remove(node *Node) bool {
 	return false
 }
 
+func (p *List) Front() *Node {
+	return p.head.next
+}
+
+/******************************************************************/
 // 删除指定位置的节点
 func (p *List) RemoveAt(index int) bool {
 	if index < 0 || index > p.size-1 {
@@ -100,6 +94,26 @@ func (p *List) Get(index int) *Node {
 		c = c.next
 	}
 	return c.next
+}
+
+// 添加数据到指定位置
+func (p *List) Insert(data interface{}, index int) *Node {
+	if index < 0 || index > p.size-1 {
+		return nil
+	}
+	n := newNode(data)
+	c := p.head
+	for c.next != nil {
+		if index == 0 {
+			break
+		}
+		index--
+		c = c.next
+	}
+	n.next = c.next
+	c.next = n
+	p.size++
+	return n
 }
 
 // 反转

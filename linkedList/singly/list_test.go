@@ -92,3 +92,12 @@ func TestList_Reverse(t *testing.T) {
 	l.Reverse()
 	print(l)
 }
+
+func TestList_Get(t *testing.T) {
+	l := append()
+	print(l)
+	n := l.Get(0)
+	fmt.Println(n.Data())
+	n = l.Get(9)
+	fmt.Println(n.Data())
+}

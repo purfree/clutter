@@ -138,6 +138,27 @@ func (p *List) Remove(index int) error {
 	return errors.Errorf("out of range")
 }
 
+func (p *List) Get(index int) *Node {
+	if p.size == 0 {
+		return nil
+	}
+	if index < 0 || index >= p.size {
+		return nil
+	}
+	tem := p.head
+	for tem != nil {
+		if index == 0 {
+			return tem
+		} else if index < 0 {
+			// 不可抵达
+			panic("not arrived")
+		}
+		index--
+		tem = tem.next
+	}
+	return nil
+}
+
 func (p *List) Reverse() {
 	if p.size <= 1 {
 		return

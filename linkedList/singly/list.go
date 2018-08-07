@@ -1,29 +1,15 @@
 package singly
 
-import (
-	"github.com/pkg/errors"
-)
-
-type Node struct {
-	data interface{}
-	next *Node
-}
-
-func (p *Node) Next() *Node {
-	return p.next
-}
-
-func (p *Node) Data() interface{} {
-	return p.data
-}
-
 type List struct {
 	head *Node
 	size int
 }
 
 func New() *List {
-	return &List{}
+	return &List{
+		head: newNode(nil),
+		size: 0,
+	}
 }
 
 func (p *List) Length() int {
@@ -32,152 +18,121 @@ func (p *List) Length() int {
 
 // 添加数据到链尾
 func (p *List) Append(data interface{}) *Node {
-	n := &Node{}
-	n.data = data
-	if p.size == 0 {
-		p.head = n
-	} else {
-		tem := p.head
-		for tem != nil {
-			if tem.next == nil {
-				tem.next = n
-				break
-			}
-			tem = tem.next
-		}
+	n := newNode(data)
+	c := p.head
+	for c.next != nil {
+		c = c.next
 	}
+	c.next = n
 	p.size++
 	return n
 }
 
 // 添加数据到指定位置
-// 如果index大于等于链长度，添加到链尾
-// 如果index小于0，添加到链头
 func (p *List) Insert(data interface{}, index int) *Node {
-	if index >= p.size {
-		return p.Append(data)
+	if index < 0 || index > p.size-1 {
+		return nil
 	}
-	if index < 0 {
-		index = 0
-	}
-	n := &Node{}
-	n.data = data
-	if index == 0 {
-		n.next = p.head
-		p.head = n
-	} else {
-		tem := p.head
-		for tem != nil {
-			index--
-			if index == 0 {
-				n.next = tem.next
-				tem.next = n
-				break
-			}
-			tem = tem.next
+	n := newNode(data)
+	c := p.head
+	for c.next != nil {
+		if index == 0 {
+			break
 		}
+		index--
+		c = c.next
 	}
+	n.next = c.next
+	c.next = n
 	p.size++
 	return n
 }
 
-func (p *List) Delete(node *Node) error {
+// 删除节点
+func (p *List) Remove(node *Node) bool {
 	if p.size == 0 {
-		return nil
+		return false
 	}
 	if node == nil {
-		return nil
+		return false
 	}
-	if p.head == node {
-		p.head = p.head.next
-		p.size--
-		return nil
-
-	}
-	tem := p.head
-	for tem != nil {
-		if tem.next == node {
-			tem.next = tem.next.next
+	c := p.head
+	for c.next != nil {
+		if c.next == node {
+			c.next = c.next.next
 			p.size--
-			return nil
+			return true
 		}
-		tem = tem.next
+		c = c.next
 	}
-	return errors.Errorf("not found")
+	return false
 }
 
-func (p *List) Remove(index int) error {
-	if p.size == 0 {
-		return nil
+// 删除指定位置的节点
+func (p *List) RemoveAt(index int) bool {
+	if index < 0 || index > p.size-1 {
+		return false
 	}
-	if index < 0 || index >= p.size {
-		return errors.Errorf("out of range")
-	}
-	if index == 0 {
-		p.head = p.head.next
-		p.size--
-		return nil
-	}
-	tem := p.head
-	for tem != nil {
-		index--
+	c := p.head
+	for c.next != nil {
 		if index == 0 {
-			//if tem.next == nil {
-			//	return errors.Errorf("out of range")
-			//}
-			tem.next = tem.next.next
-			p.size--
-			return nil
-		} else if index < 0 {
-			// 不可抵达
-			panic("not arrived")
-			//return errors.Errorf("not found")
+			break
 		}
-		tem = tem.next
+		index--
+		c = c.next
 	}
-	return errors.Errorf("out of range")
+	c.next = c.next.next
+	p.size--
+	return true
 }
 
+// 获取指定位置的节点
 func (p *List) Get(index int) *Node {
-	if p.size == 0 {
+	if index < 0 || index > p.size-1 {
 		return nil
 	}
-	if index < 0 || index >= p.size {
-		return nil
-	}
-	tem := p.head
-	for tem != nil {
+	c := p.head
+	for c.next != nil {
 		if index == 0 {
-			return tem
-		} else if index < 0 {
-			// 不可抵达
-			panic("not arrived")
+			break
 		}
 		index--
-		tem = tem.next
+		c = c.next
 	}
-	return nil
+	return c.next
 }
 
+// 反转
 func (p *List) Reverse() {
 	if p.size <= 1 {
 		return
 	}
-	if p.size == 2 {
-		tem := p.head.next
-		p.head.next = nil
-		tem.next = p.head
-		p.head = tem
-		return
-	}
-	cur := p.head
-	next := p.head.next
-	cur.next = nil
-	for next != nil {
-		tem := next.next
-		next.next = cur
+	pre := p.head.next
+	cur := pre.next
+	pre.next = nil
+
+	// 迭代
+	for cur != nil {
+		next := cur.next
+		cur.next = pre
+
+		pre = cur
 		cur = next
-		next = tem
 	}
-	p.head = cur
+	p.head.next = pre
+
+	// 递归
+	//p.head.next = nil
+	//p.recursion(pre, cur)
+}
+
+func (p *List) recursion(pre, cur *Node) {
+	if cur.next != nil {
+		p.recursion(cur, cur.next)
+	}
+	cur.next = pre
+	pre.next = nil
+	if p.head.next == nil {
+		p.head.next = cur
+	}
 }

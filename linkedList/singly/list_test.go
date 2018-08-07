@@ -10,7 +10,7 @@ func print(l *List) {
 		return
 	}
 	fmt.Printf("size: %v \n", l.Length())
-	tem := l.head
+	tem := l.head.next
 	for tem != nil {
 		fmt.Printf("%v ", tem.Data())
 		tem = tem.next
@@ -40,10 +40,12 @@ func TestList_Append(t *testing.T) {
 }
 
 func TestList_Insert(t *testing.T) {
-	l := insert()
+	l := append()
+	l.Insert(10, 0)
 	print(l)
-
-	l.Insert(22, 22)
+	l.Insert(11, 10)
+	print(l)
+	l.Insert(100, 100)
 	print(l)
 }
 
@@ -52,17 +54,17 @@ func TestList_Delete(t *testing.T) {
 
 	a := l.Append(22)
 	print(l)
-	l.Delete(a)
+	l.Remove(a)
 	print(l)
 
 	b := l.Insert(33, 5)
 	print(l)
-	l.Delete(b)
+	l.Remove(b)
 	print(l)
 
 	c := l.Insert(33, 0)
 	print(l)
-	l.Delete(c)
+	l.Remove(c)
 	print(l)
 }
 
@@ -70,19 +72,19 @@ func TestList_Remove(t *testing.T) {
 	l := append()
 
 	print(l)
-	l.Remove(0)
+	l.RemoveAt(0)
 	print(l)
 
 	print(l)
-	l.Remove(8)
+	l.RemoveAt(8)
 	print(l)
 
 	print(l)
-	l.Remove(33)
+	l.RemoveAt(33)
 	print(l)
 
 	print(l)
-	l.Remove(3)
+	l.RemoveAt(3)
 	print(l)
 }
 

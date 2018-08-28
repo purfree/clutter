@@ -1,4 +1,4 @@
-//docker运行centos7
+//docker运行centos7  
 docker run --privileged -t -i -v /e/docker/centos/data:/data -p 80:80 centos-ssh:latest /usr/sbin/init  
 docker run --privileged -d -v /e/docker/centos/data:/data -p 80:80 centos-ssh:latest /usr/sbin/init  
 

@@ -18,3 +18,6 @@ yum install -y net-tools //ifconfig
 docker commit imageID new_name:new_tag  
 
 docker挂载,	如果挂载的时候需要授权，在更新系统后需要重置，Shared Drives -> Reset credentials，例如系统密码更新后需要更新，docker不会主动提示密码过期。
+
+//启动consul时需要绑定client  
+./consul agent -dev -ui -node=consul-dev -client=172.17.0.2

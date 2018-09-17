@@ -11,6 +11,8 @@ docker inspect -f "{{.Name}} - {{.NetworkSettings.IPAddress }}" ImageID
 
 //新下载的容器需要更新  
 yum update -y  
+  
+yum install -y net-tools //ifconfig  
 
 //保存镜像  
 docker commit imageID new_name:new_tag  

@@ -25,3 +25,6 @@ git 修改当前的project提交邮箱的命令为：**git config user.email 你
 git config  --global user.name 你的目标用户名；**
 
 **git config  --global user.email 你的目标邮箱名;**
+
+##### windows更新文件执行权限
+git update-index --chmod=+x exe

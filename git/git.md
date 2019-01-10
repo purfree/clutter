@@ -28,3 +28,8 @@ git config  --global user.name 你的目标用户名；**
 
 ##### windows更新文件执行权限
 git update-index --chmod=+x exe
+
+
+若执行ssh-add /path/to/xxx.pem是出现这个错误:Could not open a connection to your authentication agent，则先执行如下命令即可：
+
+　　ssh-agent bash

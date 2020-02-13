@@ -1,7 +1,7 @@
 #!/bin/bash
 
-yum update -y
-yum install -y vim
+#yum update -y
+#yum install -y vim
 
 echo "为了使用BBR，系统内核必须 >= 4.9.0"
 echo "当前系统内核: `uname -r`"
